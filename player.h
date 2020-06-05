@@ -11,7 +11,7 @@ public:
 	void setMapX(int x);//设置地图位置，玩家1为0，玩家2为50
 	string getName();//获取玩家名字
 	int getScore();//获取玩家分数
-	int eliminateRow();//判断并消行,加分,返回消去的行数
+	int eliminateRow(HANDLE hOut);//判断并消行,加分,返回消去的行数
 	void addRow(int x);//增加随机的x行
 	bool collisionDetection(Block block);//检测方块是否卡墙或超出地图
 	void goLeft(HANDLE hOut);//左移
@@ -28,4 +28,5 @@ private:
 	Block nowBlock;//正在下落的方块
 	friend class Block;
 	friend class Render;
+	friend class Game;
 };
