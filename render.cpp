@@ -15,7 +15,7 @@ void Render::gotoXY(HANDLE hOut, int x, int y) { //移动光标
     SetConsoleCursorPosition(hOut, pos);
 }
 
-void Render::initialPrint2(HANDLE hOut){
+void Render::initialPrint2(HANDLE hOut,string name1,string name2){
     SetConsoleTitle("我罗斯方块");
     COORD size = { 160, 40 };
     SetConsoleScreenBufferSize(hOut, size);
@@ -37,6 +37,7 @@ void Render::initialPrint2(HANDLE hOut){
     cout << "游戏模式：双人";
     gotoXY(hOut, 26, 2);
     cout << "玩    家：";
+    cout << name1;
     gotoXY(hOut, 26, 3);
     cout << "分    数：0";
     gotoXY(hOut, 26, 5);
@@ -44,9 +45,9 @@ void Render::initialPrint2(HANDLE hOut){
     gotoXY(hOut, 26, 11);
     cout << "操作方法：";
     gotoXY(hOut, 30, 12);
-    cout << "↑：变形 ↓：下落";
+    cout << "W ：变形 S ：下落";
     gotoXY(hOut, 30, 13);
-    cout << "←：左移 →：右移";
+    cout << "A ：左移 D ：右移";
     gotoXY(hOut, 30, 14);
     cout << "P ：开始/暂停";
     gotoXY(hOut, 30, 15);
@@ -66,6 +67,7 @@ void Render::initialPrint2(HANDLE hOut){
     cout << "游戏模式：双人";
     gotoXY(hOut, 76, 2);
     cout << "玩    家：";
+    cout << name2;
     gotoXY(hOut, 76, 3);
     cout << "分    数：0";
     gotoXY(hOut, 76, 5);
@@ -83,7 +85,7 @@ void Render::initialPrint2(HANDLE hOut){
     gotoXY(hOut, 85, 19);
     cout << "By:黄新成";
 }
-void Render::initialPrint1(HANDLE hOut) { //初始化单人界面
+void Render::initialPrint1(HANDLE hOut,string name) { //初始化单人界面
     SetConsoleTitle("我罗斯方块");
     COORD size = { 80, 25 };
     SetConsoleScreenBufferSize(hOut, size);
@@ -105,6 +107,7 @@ void Render::initialPrint1(HANDLE hOut) { //初始化单人界面
     cout << "游戏模式：单人";
     gotoXY(hOut, 26, 2);
     cout << "玩    家：";
+    cout << name;
     gotoXY(hOut, 26, 3);
     cout << "分    数：0";
     gotoXY(hOut, 26, 5);
@@ -161,4 +164,8 @@ void Render::printMap(HANDLE hOut, Player player) { //更新玩家地图
             }
         }
     }
+}
+void Render::printScore(HANDLE hOut, int score, int x, int y) {
+    gotoXY(hOut, x, y);
+    cout << score;
 }
