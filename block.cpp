@@ -13,13 +13,24 @@ Block::Block() {
 	color = 0;
 	shape = 0;
 }
-void Block::setXY(int x, int y) {
+Block::Block(const Block& b2) {
+	posX = b2.posX;
+	posY = b2.posY;
+	color = b2.color;
+	shape = b2.shape;
+}
+void Block::setX(int x) {
 	posX = x;
+}
+void Block::setY(int y) {
 	posY = y;
+}
+void Block::setShape(int s) {
+	shape = s;
 }
 void Block::roundBlock() {
 	int random;//随机数
-	srand((unsigned)time(NULL));
+	//srand((unsigned)time(NULL));
 	random = rand() % 7;//产生0-6的随机数,随机一种方块
 	random = random * 4 + 1;
 	switch (random) {//随机方块形状和颜色
