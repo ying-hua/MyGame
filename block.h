@@ -3,7 +3,10 @@
 class Block {
 public:
 	Block();//构造函数
-	void setXY(int x, int y);
+	Block(const Block&);
+	void setX(int x);
+	void setY(int y);
+	void setShape(int s);
 	void roundBlock();//随机生成方块
 	int getX();//获取方块坐标
 	int getY();
@@ -17,8 +20,9 @@ private:
 	friend class Player;
 };
 
+
 static int stdblock[30][4][4] = { //标准方块
-	{ {0,0,0,0},{0,0,0,0 },{0,0,0,0},{0,0,0,0} },//0//无
+	{ {1,1,1,1},{1,1,1,1 },{1,1,1,1},{1,1,1,1} },//0//无
 	{ {0,0,0,0},{0,0,0,0 },{1,1,1,1},{0,0,0,0} },//1
 	{ {0,0,1,0},{0,0,1,0 },{0,0,1,0},{0,0,1,0} },//2
 	{ {0,0,0,0},{0,0,0,0 },{0,0,0,0},{0,0,0,0} },//3//无
