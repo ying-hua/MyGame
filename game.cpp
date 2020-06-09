@@ -45,7 +45,6 @@ void Game::exitGame(HANDLE hOut) {
 若第一行有方块则游戏结束
 =============================*/
 void Game::gameOver1(HANDLE hOut,Player player) {
-	char key;
 	for (int i = 1; i <= 10; i++) {
 		if (player.map[1][i] == 1) { //检测地图第一行
 			SetConsoleTextAttribute(hOut, RED | GREEN | BLUE | INTENSITY);
@@ -62,7 +61,6 @@ void Game::gameOver1(HANDLE hOut,Player player) {
 游戏结束后打印玩家获胜画面
 =============================*/
 void Game::gameOver2(HANDLE hOut, Player player1, Player player2) { 
-	char key;
 	for (int i = 1; i <= 10; i++) {
 		if (player1.map[1][i] == 1) { //若玩家1的地图满了
 			Render::printWin(hOut, player2.getName()); //则玩家2获胜
