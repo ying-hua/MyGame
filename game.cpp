@@ -184,7 +184,7 @@ void Game::startGame2() {
 //单人模式开始游戏，与双人模式类似，有些不同
 void Game::startGame1() {
 	char key;//储存按键
-	int speed = 1200;//控制方块下落速度
+	int speed = 1500;//控制方块下落速度
 	int times = speed;
 	int shape, x, y, color;//玩家正在下落的方块的属性
 	Player player;
