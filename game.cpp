@@ -50,7 +50,7 @@ void Game::gameOver1(HANDLE hOut,Player player) {
 			SetConsoleTextAttribute(hOut, RED | GREEN | BLUE | INTENSITY);
 			Render::gotoXY(hOut, 0, 23);
 			cout << "游戏结束" << endl;
-			cout << "再接再厉哦,退出重来吧";
+			cout << "再接再厉哦,按Esc退出重来吧";
 			exit(0);
 		}
 	}
@@ -90,7 +90,12 @@ void Game::gamePause(HANDLE hOut) {
 		if (_kbhit()) {
 			key = _getch();
 			switch (key) {
-			case 27:exitGame(hOut); break;
+			case 27:
+				Render::gotoXY(hOut, 0, 22);
+				cout << "        " << endl;
+				cout << "                 ";
+				exitGame(hOut); 
+				return;
 			case 112:
 				Render::gotoXY(hOut, 0, 22);
 				cout << "        " << endl;
@@ -109,8 +114,8 @@ void Game::gamePause(HANDLE hOut) {
 每隔一段时间方块自动下落
 =============================*/
 void Game::startGame2() {
-	char key;//储存按键
-	int speed = 1200;//控制方块下落速度，speed越小，下落速度越快
+	char key; //储存按键
+	int speed = 30;//控制方块下落速度，speed越小，下落速度越快(无152行时建议改为1200,否则建议改为30)
 	int times = speed; //times初始化，游戏进行中会不断自减，减为0时自动执行一次下落函数
 	int shape1, shape2, x1, y1, x2, y2, color1, color2;//两个玩家正在下落的方块的属性
 	Player player1, player2; //两个玩家
@@ -145,33 +150,31 @@ void Game::startGame2() {
 		gameOver2(hOut, player1, player2); //检测游戏是否结束
 		Render::printBlock(hOut, stdblock[shape1], 2 * y1, x1 - 1, color1); //不断打印方块
 		Render::printBlock(hOut, stdblock[shape2], 2 * y2 + 50, x2 - 1, color2);
+		Sleep(20);
 		if (_kbhit()) { //按键检测
-			key = _getch(); //获取按键
-			switch (key) {
-			case 97: //←键
-				player1.goLeft(hOut); break;
-			case 100://→键
-				player1.goRight(hOut); break;
-			case 119://↑键
-				player1.transform(hOut); break;
-			case 115://↓键
-				player1.goDown(hOut, p2); break;
-			case 75://A键
-				player2.goLeft(hOut); break;
-			case 77://D键
-				player2.goRight(hOut); break;
-			case 72://W键
-				player2.transform(hOut); break;
-			case 80://S键
-				player2.goDown(hOut, p1); break;
-			case 112://P键
-				gamePause(hOut); break;
-			case 27://Esc键
-				exitGame(hOut);break;
-			default:break;
-			}
+			key = _getch();
+			if (key == -32)_getch();
+			if (GetKeyState('A') < 0) //A键
+				player1.goLeft(hOut);
+			if (GetKeyState('D') < 0)//D键
+				player1.goRight(hOut);
+			if (GetKeyState('W') < 0)//W键
+				player1.transform(hOut);
+			if (GetKeyState('S') < 0) //S键
+				player1.goDown(hOut,p2);
+			if (GetKeyState(VK_LEFT) < 0) //←键
+				player2.goLeft(hOut);
+			if (GetKeyState(VK_RIGHT) < 0) //→键
+				player2.goRight(hOut);
+			if (GetKeyState(VK_UP) < 0) //↑键
+				player2.transform(hOut);
+			if (GetKeyState(VK_DOWN) < 0) //↓键
+				player2.goDown(hOut, p1);
+			if (key == 112) //P键
+				gamePause(hOut);
+			if (key == 27) //Ese键
+				exitGame(hOut);
 		}
-		//Sleep(20); //停顿20毫秒，加上后speed可以调小
 		if (--times == 0) { //隔一段时间times会等于0，方块自动下落
 			times = speed;
 			player1.goDown(hOut, p2);
@@ -182,7 +185,7 @@ void Game::startGame2() {
 //单人模式开始游戏，与双人模式类似，有些不同
 void Game::startGame1() {
 	char key;//储存按键
-	int speed = 1500;//控制方块下落速度
+	int speed = 30;//控制方块下落速度
 	int times = speed;
 	int shape, x, y, color;//玩家正在下落的方块的属性
 	Player player;
@@ -223,7 +226,7 @@ void Game::startGame1() {
 			default:break;
 			}
 		}
-		//Sleep(20);
+		Sleep(20);
 		if (--times == 0) {
 			times = speed;
 			player.goDown(hOut);
